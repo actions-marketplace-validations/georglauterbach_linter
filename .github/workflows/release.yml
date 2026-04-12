@@ -75,4 +75,4 @@ jobs:
             --title "${TAG}"         \
             --latest                 \
             --verify-tag             \
-            --notes "Refer to [\`CHANGELOG.md\`](https://github.com/georglauterbach/linter/blob/main/README.md#${TAG//./}) for the list of all changes."
+            --notes "Refer to [\`CHANGELOG.md\`](https://github.com/georglauterbach/linter/blob/main/CHANGELOG.md#${TAG//./}) for the list of all changes."

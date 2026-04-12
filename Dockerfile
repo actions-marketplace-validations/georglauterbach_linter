@@ -48,7 +48,7 @@ RUN apt-get -qq update \
     && mv "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/local/bin/shellcheck \
     && rmdir "shellcheck-v${SHELLCHECK_VERSION}" \
     \
-    && apt-get --yes install --no-install-recommends yamllint=${YAMLLINT_VERSION} \
+    && apt-get -qq -o=Dpkg::Use-Pty=0 install --no-install-recommends yamllint=${YAMLLINT_VERSION} \
     \
     && wget --quiet -O zizmor.tar.gz \
         "https://github.com/zizmorcore/zizmor/releases/download/v${ZIZMOR_VERSION}/zizmor-x86_64-unknown-linux-gnu.tar.gz" \
