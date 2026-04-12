@@ -1,0 +1,38 @@
+---
+name: Linting
+run-name: Linting
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ '**' ]
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Build Image
+        run: docker build -t linter .
+
+      - name: Run Linter
+        run: docker run --rm -it -v ./:/tmp:ro linter
