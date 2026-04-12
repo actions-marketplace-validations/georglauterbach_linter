@@ -1,10 +1,10 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 set -eE -u -o pipefail
 shopt -s inherit_errexit
 
 # shellcheck source=libbash
-source /lib/libbash log utils
+source /etc/linters/libbash log utils
 export SCRIPT=linter
 export LOG_LEVEL=${LOG_LEVEL:-trace}
 

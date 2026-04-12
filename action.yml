@@ -1,0 +1,78 @@
+---
+name: Composite Linter
+description: A composite linter action that consists of actionlint, editorconfig-checker, hadolint, shellcheck, yamllint, and zizmor
+author: georglauterbach
+
+branding:
+  icon: check-circle
+  color: gray-dark
+
+inputs:
+  enable_actionlint:
+    description: Enable actionlint
+    required: false
+    default: 'true'
+  enable_editorconfig_checker:
+    description: Enable editorconfig-checker
+    required: false
+    default: 'true'
+  enable_hadolint:
+    description: Enable hadolint
+    required: false
+    default: 'true'
+  enable_shellcheck:
+    description: Enable shellcheck
+    required: false
+    default: 'true'
+  enable_yamllint:
+    description: Enable yamllint
+    required: false
+    default: 'true'
+  enable_zizmor:
+    description: Enable zizmor
+    required: false
+    default: 'true'
+
+  actionlint_config:
+    description: Path to actionlint configuration file
+    required: false
+  editorconfig_checker_config:
+    description: Path to editorconfig-checker configuration file
+    required: false
+  hadolint_config:
+    description: Path to hadolint configuration file
+    required: false
+  shellcheck_config:
+    description: Path to shellcheck configuration file
+    required: false
+  yamllint_config:
+    description: Path to yamllint configuration file
+    required: false
+  zizmor_config:
+    description: Path to zizmor configuration file
+    required: false
+
+  log_level:
+    description: Log level (trace, debug, info, warn, error)
+    required: false
+    default: info
+
+runs:
+  using: docker
+  image: docker://ghcr.io/georglauterbach/linter:0.1.0
+  env:
+    ENABLE_ACTIONLINT: ${{ inputs.enable_actionlint }}
+    ENABLE_EDITORCONFIG_CHECKER: ${{ inputs.enable_editorconfig_checker }}
+    ENABLE_HADOLINT: ${{ inputs.enable_hadolint }}
+    ENABLE_SHELLCHECK: ${{ inputs.enable_shellcheck }}
+    ENABLE_YAMLLINT: ${{ inputs.enable_yamllint }}
+    ENABLE_ZIZMOR: ${{ inputs.enable_zizmor }}
+
+    ACTIONLINT_CONFIG: ${{ inputs.actionlint_config }}
+    EDITORCONFIG_CHECKER_CONFIG: ${{ inputs.editorconfig_checker_config }}
+    HADOLINT_CONFIG: ${{ inputs.hadolint_config }}
+    SHELLCHECK_CONFIG: ${{ inputs.shellcheck_config }}
+    YAMLLINT_CONFIG: ${{ inputs.yamllint_config }}
+    ZIZMOR_CONFIG: ${{ inputs.zizmor_config }}
+
+    LOG_LEVEL: ${{ inputs.log_level }}

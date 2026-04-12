@@ -14,5 +14,7 @@ dictionaries:
 words: []
 
 ignoreWords:
+  - buildx
+  - georglauterbach
   - libbash
   - zizmor

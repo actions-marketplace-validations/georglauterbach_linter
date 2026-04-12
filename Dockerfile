@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM docker.io/ubuntu:26.04
+FROM docker.io/ubuntu@sha256:cc925e589b7543b910fea57a240468940003fbfc0515245a495dd0ad8fe7cef1
 
 ARG VCS_VERSION=edge
 ARG VSC_REVISION=unknown
@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.title="linter"
 LABEL org.opencontainers.image.description="A linter image composed of common linters"
 LABEL org.opencontainers.image.source="https://github.com/georglauterbach/linter"
 LABEL org.opencontainers.image.revision="${VSC_REVISION}"
-# LABEL org.opencontainers.image.base.digest="25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659"
+LABEL org.opencontainers.image.base.digest="cc925e589b7543b910fea57a240468940003fbfc0515245a495dd0ad8fe7cef1"
 LABEL org.opencontainers.image.base.name="docker.io/alpine"
 LABEL org.opencontainers.image.version="${VCS_VERSION}"
 
@@ -23,8 +23,8 @@ ENV ZIZMOR_VERSION=1.23.1
 
 WORKDIR /tmp
 
-RUN apt-get update \
-    && apt-get --yes install --no-install-recommends \
+RUN apt-get -qq update \
+    && apt-get -qq -o=Dpkg::Use-Pty=0 install --no-install-recommends \
         ca-certificates=20250419build1 \
         wget=1.25.0-2ubuntu4 \
     \
@@ -55,18 +55,14 @@ RUN apt-get update \
     && tar xf zizmor.tar.gz ./zizmor \
     && mv zizmor /usr/local/bin/zizmor \
     \
-    && rm -r ./* \
     && chmod +x /usr/local/bin/* \
-    && apt-get --yes remove wget \
-    && apt-get --yes autoremove \
-    && apt-get --yes clean \
-    && rm -rf /var/lib/apt/lists
+    && apt-get -qq remove wget \
+    && apt-get -qq autoremove \
+    && apt-get -qq clean \
+    && rm -rf ./* /var/lib/apt/lists
 
-WORKDIR /tmp
-
-COPY libbash /lib/libbash
+COPY libbash       /etc/linters/libbash
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
 COPY configuration /etc/linters/configuration
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
