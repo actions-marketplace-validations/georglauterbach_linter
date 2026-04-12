@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file. The format 
 > Changes and additions listed here are contained in the `:edge` image tag.
 > These changes may not be as stable as released changes.
 
+## [v0.1.1](https://github.com/georglauterbach/linter/releases/tag/v0.1.1)
+
+- **Changed**
+  - silenced output from `apt` in [`Dockerfile`](./Dockerfile)
+
 ## [v0.1.0](https://github.com/georglauterbach/linter/releases/tag/v0.1.0)
 
 - **Added**

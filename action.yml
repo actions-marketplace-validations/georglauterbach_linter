@@ -59,7 +59,7 @@ inputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/georglauterbach/linter:0.1.0
+  image: docker://ghcr.io/georglauterbach/linter:0.1.1
   env:
     ENABLE_ACTIONLINT: ${{ inputs.enable_actionlint }}
     ENABLE_EDITORCONFIG_CHECKER: ${{ inputs.enable_editorconfig_checker }}
