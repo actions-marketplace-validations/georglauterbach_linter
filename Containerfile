@@ -1,32 +1,29 @@
-# syntax=docker.io/docker/dockerfile:1
-
-FROM docker.io/ubuntu@sha256:cc925e589b7543b910fea57a240468940003fbfc0515245a495dd0ad8fe7cef1
+FROM docker.io/ubuntu@sha256:2260313b31c8c011cd2eebe728008efac1b3982be73eb71348ea2648d2c0e09b
 
 ARG VCS_VERSION=edge
 ARG VSC_REVISION=unknown
 
 # https://snyk.io/de/blog/how-and-when-to-use-docker-labels-oci-container-annotations/
 LABEL org.opencontainers.image.title="linter"
-LABEL org.opencontainers.image.description="A linter image composed of common linters"
+LABEL org.opencontainers.image.description="A container image composed of common linters"
 LABEL org.opencontainers.image.source="https://github.com/georglauterbach/linter"
 LABEL org.opencontainers.image.revision="${VSC_REVISION}"
-LABEL org.opencontainers.image.base.digest="cc925e589b7543b910fea57a240468940003fbfc0515245a495dd0ad8fe7cef1"
+LABEL org.opencontainers.image.base.digest="2260313b31c8c011cd2eebe728008efac1b3982be73eb71348ea2648d2c0e09b"
 LABEL org.opencontainers.image.base.name="docker.io/alpine"
 LABEL org.opencontainers.image.version="${VCS_VERSION}"
 
 ENV ACTIONLINT_VERSION=1.7.12
-ENV EDITORCONFIG_CHECKER_VERSION=3.6.1
+ENV EDITORCONFIG_CHECKER_VERSION=3.8.0
 ENV HADOLINT_VERSION=2.14.0
 ENV SHELLCHECK_VERSION=0.11.0
 ENV YAMLLINT_VERSION=1.37.1-1
-ENV ZIZMOR_VERSION=1.23.1
+ENV ZIZMOR_VERSION=1.26.1
 
 WORKDIR /tmp
 
+# hadolint ignore=DL3008
 RUN apt-get -qq update \
-    && apt-get -qq -o=Dpkg::Use-Pty=0 install --no-install-recommends \
-        ca-certificates=20250419build1 \
-        wget=1.25.0-2ubuntu4 \
+    && apt-get -qq -o=Dpkg::Use-Pty=0 install --no-install-recommends ca-certificates wget \
     \
     && wget --quiet -O actionlint.tar.gz \
         "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz" \
@@ -52,13 +49,11 @@ RUN apt-get -qq update \
     \
     && wget --quiet -O zizmor.tar.gz \
         "https://github.com/zizmorcore/zizmor/releases/download/v${ZIZMOR_VERSION}/zizmor-x86_64-unknown-linux-gnu.tar.gz" \
-    && tar xf zizmor.tar.gz ./zizmor \
+    && tar xf zizmor.tar.gz zizmor \
     && mv zizmor /usr/local/bin/zizmor \
     \
     && chmod +x /usr/local/bin/* \
-    && apt-get -qq remove wget \
-    && apt-get -qq autoremove \
-    && apt-get -qq clean \
+    && apt-get -qq autoremove --purge wget ca-certificates \
     && rm -rf ./* /var/lib/apt/lists
 
 COPY libbash       /etc/linters/libbash

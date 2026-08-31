@@ -1,6 +1,6 @@
 ---
 rules:
-  unpinned-uses:
+  unpinned-images:
     disable: true
-  secrets-outside-env:
+  unpinned-uses:
     disable: true

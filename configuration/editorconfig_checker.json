@@ -5,7 +5,16 @@
   "SpacesAfterTabs": true,
   "NoColor": false,
   "Exclude": [
-    "^LICENSE"
+    "build/",
+    "out/",
+    "target/",
+    "tmp/",
+    "^LICENSE",
+    "devcontainer-lock\\.json$",
+    "\\.cdx\\.json$",
+    "cobertura\\.xml",
+    "lcov\\.info$",
+    "\\.der$"
   ],
   "Disable": {
     "EndOfLine": false,

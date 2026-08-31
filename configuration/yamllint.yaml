@@ -1,9 +1,13 @@
 ---
+extends: default
+
 yaml-files:
   - '*.yaml'
   - '*.yml'
 
-extends: default
+ignore:
+  - pnpm-lock.yaml
+  - .copier-answers.yml
 
 rules:
   braces:

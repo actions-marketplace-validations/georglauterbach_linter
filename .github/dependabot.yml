@@ -3,12 +3,23 @@ version: 2
 
 updates:
   - package-ecosystem: github-actions
+    directory: /
     cooldown:
       default-days: 7
-    directory: /
-    target-branch: dev
-    rebase-strategy: auto
     schedule:
       interval: monthly
     assignees: [ georglauterbach ]
-    labels: [ area/ci, kind/update ]
+    labels:
+      - kind::update
+      - area::ci
+
+  - package-ecosystem: docker
+    directory: /
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: weekly
+    assignees: [ georglauterbach ]
+    labels:
+      - kind::update
+      - area::code

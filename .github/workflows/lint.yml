@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
 
@@ -33,6 +33,7 @@ jobs:
       - name: Build Image
         uses: docker/build-push-action@v7
         with:
+          file: Containerfile
           context: .
           load: true
           tags: linter
